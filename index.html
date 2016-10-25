@@ -1,0 +1,47 @@
+<!--  1) Create a basic html page
+
+      2) Put a search input box in the middle of the page (for a username)
+
+      3) Put a search button on the page
+
+      4) Create a message/error element if the username isn't found
+
+      5) Add elements to display if user is found
+              a) profile image
+              b) username
+              c) public repo count
+              d) followers count
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>GitHub User Search</title>
+		<h1><italic>Find GitHub users fast and easy!</italic></h1>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</head>
+	
+	<body background="css/images/blue_flame.jpg" id="pageBod">
+		<div class="searchBar">
+			<input type="text" name="search" placeholder="Search GitHub Users..." id="inputField">
+		</div>
+		<div class="searchButton">
+			<button class="search" id="searchBtn">Go!</button>
+		</div>
+		
+		<script>
+			$(function(){
+				
+				
+				$("#searchBtn").click(function(){
+					var input = $("#inputField").val();
+					$.ajax({url: "https://api.github.com/users/"+input, success: function(data){
+							$("#pageBod").append('<div><img src="' + data.avatar_url + '">Username: ' + data.login + '<br>Name: ' + data.name + '<br>Repos: ' + data.public_repos + '<br>Followers: ' + data.followers + '</div>');
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
